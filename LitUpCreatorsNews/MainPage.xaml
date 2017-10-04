@@ -58,12 +58,10 @@
                         Background="{ThemeResource SystemControlAcrylicWindowBrush}"
                         SelectionChanged="NavView_SelectionChanged">
 
-            <!--<NavigationView.HeaderTemplate>
+            <NavigationView.HeaderTemplate>
                 <DataTemplate>
-                    <TextBlock FontFamily="SegoeUI" FontWeight="Thin" TextAlignment="Center" FontSize="100"
-                               Foreground="White" Text="{Binding}" />
                 </DataTemplate>
-            </NavigationView.HeaderTemplate>-->
+            </NavigationView.HeaderTemplate>
 
             <NavigationView.MenuItems>
                 <NavigationViewItem Content="Home" Icon="Home" Tag="Home" />

@@ -18,13 +18,13 @@
         <shared:FirstLastDataTemplateSelector x:Key="FirstLastDataTemplateSelector">
             <shared:FirstLastDataTemplateSelector.DefaultTemplate>
                 <DataTemplate x:DataType="models:Article">
-                    <StackPanel Width="324"
-                                Height="400"
+                    <StackPanel Width="230"
+                                Height="360"
                                 Margin="12"
                                 VariableSizedWrapGrid.ColumnSpan="1"
                                 VariableSizedWrapGrid.RowSpan="1">
                         <Image Source="{x:Bind MainImage}"
-                               Height="240"
+                               Height="150"
                                Stretch="UniformToFill" />
                         <TextBlock Style="{StaticResource TitleTextBlockStyle}"
                                    FontWeight="Bold"
@@ -43,7 +43,7 @@
                                 VariableSizedWrapGrid.ColumnSpan="2"
                                 VariableSizedWrapGrid.RowSpan="3">
                         <Image Source="{x:Bind MainImage}"
-                               MaxHeight="700"
+                               MaxHeight="550"
                                Stretch="UniformToFill" />
                         <TextBlock Style="{StaticResource TitleTextBlockStyle}"
                                    FontWeight="Bold"
@@ -61,7 +61,9 @@
     </Page.Resources>
 
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <!-- ApplicationPageBackgroundThemeBrush -->
+    <!-- SystemControlAcrylicWindowBrush -->
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
         <shared:VariableSizedGridView ItemsSource="{x:Bind ViewModel.Articles}"
                                       ItemTemplateSelector="{StaticResource FirstLastDataTemplateSelector}"
@@ -71,8 +73,8 @@
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VariableSizedWrapGrid Orientation="Horizontal"
-                                           ItemHeight="424"
-                                           ItemWidth="348" />
+                                           ItemHeight="350"
+                                           ItemWidth="250" />
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
         </shared:VariableSizedGridView>
