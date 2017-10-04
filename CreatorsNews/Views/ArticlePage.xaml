@@ -19,13 +19,15 @@
                        Stretch="UniformToFill" />
                 <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
                            FontWeight="Bold"
-                           Text="{x:Bind ViewModel.Article.Title, Mode=TwoWay}" />
+                           Text="{x:Bind ViewModel.Article.Title, Mode=TwoWay}"
+                           Foreground="White"/>
                 <ItemsControl ItemsSource="{x:Bind ViewModel.Article.Paragraphs, Mode=OneWay}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}"
                                        Margin="0,6"
-                                       Style="{StaticResource BodyTextBlockStyle}"/>
+                                       Style="{StaticResource BodyTextBlockStyle}"
+                                       Foreground="White"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

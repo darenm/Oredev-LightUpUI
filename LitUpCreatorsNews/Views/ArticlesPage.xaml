@@ -1,0 +1,83 @@
+﻿<Page
+    x:Class="CreatorsNews.Views.ArticlesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CreatorsNews.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shared="using:Shared"
+    xmlns:models="using:CreatorsNews.Models"
+    xmlns:viewModels="using:CreatorsNews.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewModels:MainPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <shared:FirstLastDataTemplateSelector x:Key="FirstLastDataTemplateSelector">
+            <shared:FirstLastDataTemplateSelector.DefaultTemplate>
+                <DataTemplate x:DataType="models:Article">
+                    <StackPanel Width="324"
+                                Height="400"
+                                Margin="12"
+                                VariableSizedWrapGrid.ColumnSpan="1"
+                                VariableSizedWrapGrid.RowSpan="1">
+                        <Image Source="{x:Bind MainImage}"
+                               Height="240"
+                               Stretch="UniformToFill" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   FontWeight="Bold"
+                                   FontSize="20"
+                                   Text="{x:Bind Title}" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}"
+                                   Text="{x:Bind Paragraphs[0]}"
+                                   Height="60"
+                                   TextTrimming="WordEllipsis" />
+                    </StackPanel>
+                </DataTemplate>
+            </shared:FirstLastDataTemplateSelector.DefaultTemplate>
+            <shared:FirstLastDataTemplateSelector.FirstItemTemplate>
+                <DataTemplate x:DataType="models:Article">
+                    <StackPanel Margin="12"
+                                VariableSizedWrapGrid.ColumnSpan="2"
+                                VariableSizedWrapGrid.RowSpan="3">
+                        <Image Source="{x:Bind MainImage}"
+                               MaxHeight="700"
+                               Stretch="UniformToFill" />
+                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                                   FontWeight="Bold"
+                                   FontSize="24"
+                                   Text="{x:Bind Title}" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}"
+                                   Text="{x:Bind Paragraphs[0]}"
+                                   Height="60"
+                                   TextWrapping="Wrap"
+                                   TextTrimming="WordEllipsis" />
+                    </StackPanel>
+                </DataTemplate>
+            </shared:FirstLastDataTemplateSelector.FirstItemTemplate>
+        </shared:FirstLastDataTemplateSelector>
+    </Page.Resources>
+
+
+    <!-- ApplicationPageBackgroundThemeBrush -->
+    <!-- SystemControlAcrylicWindowBrush -->
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+
+        <shared:VariableSizedGridView ItemsSource="{x:Bind ViewModel.Articles}"
+                                      ItemTemplateSelector="{StaticResource FirstLastDataTemplateSelector}"
+                                      IsItemClickEnabled="True"
+                                      SelectionMode="None"
+                                      ItemClick="ArticleClicked">
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VariableSizedWrapGrid Orientation="Horizontal"
+                                           ItemHeight="424"
+                                           ItemWidth="348" />
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </shared:VariableSizedGridView>
+
+    </Grid>
+</Page>

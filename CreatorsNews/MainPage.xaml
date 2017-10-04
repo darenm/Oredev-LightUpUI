@@ -20,8 +20,8 @@
                     <ColumnDefinition Width="48" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <SymbolIcon Grid.Column="0" Symbol="{x:Bind Icon, Mode=OneWay}" Foreground="Black" />
-                <TextBlock Grid.Column="1" Text="{x:Bind Name, Mode=OneWay}" FontSize="16" VerticalAlignment="Center" Foreground="Black" />
+                <SymbolIcon Grid.Column="0" Symbol="{x:Bind Icon, Mode=OneWay}" Foreground="White" />
+                <TextBlock Grid.Column="1" Text="{x:Bind Name, Mode=OneWay}" FontSize="16" VerticalAlignment="Center" Foreground="White" />
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -30,7 +30,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <controls:HamburgerMenu x:Name="HamburgerMenuControl"
                                 PaneBackground="Orange"
-                                Foreground="Black"
+                                Foreground="White"
                                 DisplayMode="Inline"
                                 IsPaneOpen="True"
                                 ItemTemplate="{StaticResource DefaultTemplate}"
