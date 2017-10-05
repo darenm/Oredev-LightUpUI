@@ -37,7 +37,13 @@ namespace CreatorsNews.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
-        }
 
+            // Don't use vertical entrance animation with connected animation
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                EntranceTransition.FromVerticalOffset = 0;
+            }
+
+        }
     }
 }

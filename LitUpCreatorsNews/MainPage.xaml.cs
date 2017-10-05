@@ -35,13 +35,39 @@ namespace CreatorsNews
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
-            // Note - a different type of TitleBar...
-            CoreApplicationViewTitleBar coreApplicationViewTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            coreApplicationViewTitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
-
-
             Loaded += OnLoaded;
         }
+
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+            RootFrame.NavigationFailed += OnNavigationFailed;
+            RootFrame.Navigated += RootFrameOnNavigated;
+            SetSelectedMenuItem("Home");
+        }
+
+        private void RootFrameOnNavigated(object sender, NavigationEventArgs navigationEventArgs)
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = RootFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+
+        /// <summary>
+        ///     Invoked when Navigation to a certain page fails
+        /// </summary>
+        /// <param name="sender">The Frame which failed navigation</param>
+        /// <param name="e">Details about the navigation failure</param>
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+        }
+
+        private void OnMenuItemClick(object sender, ItemClickEventArgs e)
+        {
+            var menuItem = e.ClickedItem as MenuItem;
+            RootFrame.Navigate(menuItem.PageType);
+        }
+
+        #region NavigationMenu navigation
 
         private void App_BackRequested(object sender,
             BackRequestedEventArgs e)
@@ -76,19 +102,6 @@ namespace CreatorsNews
                 SetSelectedMenuItem(desiredTag);
             }
         }
-        private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
-        {
-            AppTitle.Margin = new Thickness(CoreApplication.GetCurrentView().TitleBar.SystemOverlayLeftInset + 12, 8, 0, 0);
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-            SystemNavigationManager.GetForCurrentView().BackRequested +=
-                App_BackRequested;
-            RootFrame.NavigationFailed += OnNavigationFailed;
-            RootFrame.Navigated += RootFrameOnNavigated;
-            SetSelectedMenuItem("Home");
-        }
 
         private void SetSelectedMenuItem(string tag)
         {
@@ -100,27 +113,6 @@ namespace CreatorsNews
                     break;
                 }
             }
-        }
-
-        private void RootFrameOnNavigated(object sender, NavigationEventArgs navigationEventArgs)
-        {
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = RootFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
-        }
-
-        /// <summary>
-        ///     Invoked when Navigation to a certain page fails
-        /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
-        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
-
-        private void OnMenuItemClick(object sender, ItemClickEventArgs e)
-        {
-            var menuItem = e.ClickedItem as MenuItem;
-            RootFrame.Navigate(menuItem.PageType);
         }
 
         private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -166,5 +158,9 @@ namespace CreatorsNews
                 actualTargetType = desiredTargetType;
             }
         }
+
+        #endregion
+
+
     }
 }

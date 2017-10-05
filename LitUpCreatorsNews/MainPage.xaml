@@ -15,6 +15,8 @@
     mc:Ignorable="d">
 
     <Page.Resources>
+        <AcrylicBrush x:Key="TitleBarBackground"
+                      BackgroundSource="Backdrop" TintColor="Orange" TintOpacity=".2" FallbackColor="Orange" />
         <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
                       BackgroundSource="Backdrop" TintColor="Orange" TintOpacity=".6" FallbackColor="Orange" />
         <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground"
@@ -178,8 +180,6 @@
             <Frame x:Name="RootFrame" />
         </controls:HamburgerMenu>-->
 
-        <TextBlock x:Name="AppTitle" Style="{StaticResource CaptionTextBlockStyle}"
-                   Text="{x:Bind appmodel:Package.Current.DisplayName}" IsHitTestVisible="False" Foreground="Red" />
 
 
         <NavigationView Style="{StaticResource NavigationViewStyleNoHeader}" x:Name="NavView"
@@ -197,8 +197,21 @@
                 <NavigationViewItem Content="News" Icon="Document" Tag="News" />
             </NavigationView.MenuItems>
 
-            <Frame x:Name="RootFrame" />
+            <Grid>
+                <Frame x:Name="RootFrame" />
+                <Border Background="{StaticResource TitleBarBackground}"
+                           Height="32"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Top">
+                    <TextBlock x:Name="AppTitle" Style="{StaticResource CaptionTextBlockStyle}"
+                               HorizontalAlignment="Center"
+                               Margin="0,8,0,0"
+                               Text="{x:Bind appmodel:Package.Current.DisplayName}" IsHitTestVisible="False" />
+                </Border>
+
+            </Grid>
 
         </NavigationView>
+
     </Grid>
 </Page>

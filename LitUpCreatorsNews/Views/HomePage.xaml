@@ -10,6 +10,7 @@
     <!-- ApplicationPageBackgroundThemeBrush -->
     <!-- SystemControlAcrylicWindowBrush -->
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        <TextBlock FontFamily="SegoeUI" FontWeight="Thin" TextAlignment="Center" FontSize="100" Foreground="White">Home</TextBlock>
+        <TextBlock FontFamily="SegoeUI" FontWeight="Thin" TextAlignment="Center" FontSize="100" Foreground="White"
+                   Margin="0,32,0,0">Home</TextBlock>
     </Grid>
 </Page>

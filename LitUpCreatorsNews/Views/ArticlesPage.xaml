@@ -31,6 +31,12 @@
                     <EntranceThemeTransition x:Name="EntranceTransition" />
                 </TransitionCollection>
             </GridView.ItemContainerTransitions>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Margin="0,32,0,0"
+                                   Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Article">
                     <StackPanel Width="230"
