@@ -240,7 +240,7 @@ namespace CreatorsNews
             _pointLight.Targets.Remove(_contentVisual);
             _pointLight.Dispose();
             _pointLight = null;
-            _contentVisual?.Dispose();
+            //_contentVisual?.Dispose();
             _lightPositionExpression?.Dispose();
             _offsetAnimation?.Dispose();
         }

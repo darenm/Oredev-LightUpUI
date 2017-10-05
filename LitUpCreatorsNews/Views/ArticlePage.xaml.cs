@@ -18,6 +18,9 @@ namespace CreatorsNews.Views
     public sealed partial class ArticlePage : Page
     {
         private static ScalarKeyFrameAnimation OpacityAnimation;
+        private static Vector3KeyFrameAnimation FlyInTranslationAnimation;
+        private static Vector3KeyFrameAnimation FlyOutTranslationAnimation;
+        private static CompositionAnimationGroup AnimationGroup;
         private Visual _articleVisual;
 
         public ArticlePage()
@@ -25,12 +28,13 @@ namespace CreatorsNews.Views
             InitializeComponent();
             EnsureAnimation();
             _articleVisual = ElementCompositionPreview.GetElementVisual(ArticlePagePanel);
+            ElementCompositionPreview.SetIsTranslationEnabled(ArticlePagePanel, true);
             _articleVisual.Opacity = 0;
         }
 
         private void EnsureAnimation()
         {
-            if (OpacityAnimation != null)
+            if (AnimationGroup != null)
             {
                 return;
             }
@@ -41,6 +45,16 @@ namespace CreatorsNews.Views
             OpacityAnimation.InsertKeyFrame(0.2f, 0, linear);
             OpacityAnimation.InsertKeyFrame(1, 1, linear);
             OpacityAnimation.Duration = TimeSpan.FromMilliseconds(600);
+            OpacityAnimation.Target = nameof(Visual.Opacity);
+
+            FlyInTranslationAnimation = Window.Current.Compositor.CreateVector3KeyFrameAnimation();
+            FlyInTranslationAnimation.InsertKeyFrame(0, new System.Numerics.Vector3(0, 2000, 0));
+            FlyInTranslationAnimation.InsertKeyFrame(1, System.Numerics.Vector3.Zero);
+            FlyInTranslationAnimation.Duration = TimeSpan.FromMilliseconds(600);
+            FlyInTranslationAnimation.Target = "Translation";
+            AnimationGroup = Window.Current.Compositor.CreateAnimationGroup();
+            AnimationGroup.Add(OpacityAnimation);
+            AnimationGroup.Add(FlyInTranslationAnimation);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -59,13 +73,17 @@ namespace CreatorsNews.Views
                 {
                     BackgroundImage.Opacity = 1;
                     animation.TryStart(BackgroundImage);
-                    _articleVisual.StartAnimation(nameof(Visual.Opacity), OpacityAnimation);
+                    _articleVisual.StartAnimationGroup(AnimationGroup);
                 };
             }
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
+            // Add a fade out effect
+            Transitions = new TransitionCollection();
+            Transitions.Add(new ContentThemeTransition());
+
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", BackgroundImage);
             base.OnNavigatingFrom(e);
         }

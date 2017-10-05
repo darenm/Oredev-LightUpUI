@@ -193,26 +193,24 @@
             </NavigationView.HeaderTemplate>
 
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="Home" Icon="Home" Tag="Home" />
+                <NavigationViewItem Content="Home"  Icon="Home"           Tag="Home" />
                 <NavigationViewItem Content="Games" Icon="XboxOneConsole" Tag="Games" />
-                <NavigationViewItem Content="News" Icon="Document" Tag="News" />
+                <NavigationViewItem Content="News"  Icon="Document"       Tag="News" />
             </NavigationView.MenuItems>
 
             <Grid>
                 <Frame x:Name="RootFrame" />
                 <Border Background="{StaticResource TitleBarBackground}"
-                           Height="32"
-                           HorizontalAlignment="Stretch"
-                           VerticalAlignment="Top">
+                        Height="32"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top">
                     <TextBlock x:Name="AppTitle" Style="{StaticResource CaptionTextBlockStyle}"
                                HorizontalAlignment="Center"
                                Margin="0,8,0,0"
-                               Text="{x:Bind appmodel:Package.Current.DisplayName}" IsHitTestVisible="False" />
+                               Text="{x:Bind appmodel:Package.Current.DisplayName}" 
+                               IsHitTestVisible="False" />
                 </Border>
-
             </Grid>
-
         </NavigationView>
-
     </Grid>
 </Page>

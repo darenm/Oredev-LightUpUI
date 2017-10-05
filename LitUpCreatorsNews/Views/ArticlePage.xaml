@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:CreatorsNews.ViewModels"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
     <Page.DataContext>
         <viewModels:ArticlePageViewModel x:Name="ViewModel"/>
@@ -29,27 +30,33 @@
                    Stretch="UniformToFill" />
         </ParallaxView>
         <ScrollViewer x:Name="ArticleScroll">
-            <StackPanel HorizontalAlignment="Center"
-                        x:Name="ArticlePagePanel"
-                        Background="{StaticResource ArticleBackground}"
+            <controls:DropShadowPanel BlurRadius="8"
+                                      ShadowOpacity="0.7"
+                                      x:Name="ArticlePagePanel"
+                                      OffsetX="2"
+                                      OffsetY="2"
+                                      Color="Black"
+                                      Margin="0,400,0,400"
+                                      HorizontalAlignment="Center">
+                <StackPanel Background="White"
                         MaxWidth="700"
-                        Margin="0,400,0,400"
                         Padding="12">
-                <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
                            FontWeight="Bold"
                            Text="{x:Bind ViewModel.Article.Title, Mode=TwoWay}"
                            Foreground="Black"/>
-                <ItemsControl ItemsSource="{x:Bind ViewModel.Article.Paragraphs, Mode=OneWay}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}"
+                    <ItemsControl ItemsSource="{x:Bind ViewModel.Article.Paragraphs, Mode=OneWay}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}"
                                        Margin="0,6"
                                        Style="{StaticResource BodyTextBlockStyle}"
                                        Foreground="Black"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </controls:DropShadowPanel>
         </ScrollViewer>
     </Grid>
 </Page>
