@@ -14,15 +14,25 @@
         <viewModels:MainPageViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
-    <Page.Resources>
-        <shared:FirstLastDataTemplateSelector x:Key="FirstLastDataTemplateSelector">
-            <shared:FirstLastDataTemplateSelector.DefaultTemplate>
+
+    <!-- ApplicationPageBackgroundThemeBrush -->
+    <!-- SystemControlAcrylicWindowBrush -->
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+        <GridView ItemsSource="{x:Bind ViewModel.Articles}"
+                                      IsItemClickEnabled="True"
+                                      SelectionMode="None"
+                                      ItemClick="ArticleClicked">
+
+            <GridView.ItemContainerTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition x:Name="EntranceTransition" />
+                </TransitionCollection>
+            </GridView.ItemContainerTransitions>
+            <GridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Article">
                     <StackPanel Width="230"
-                                Height="360"
-                                Margin="12"
-                                VariableSizedWrapGrid.ColumnSpan="1"
-                                VariableSizedWrapGrid.RowSpan="1">
+                                Height="300"
+                                Margin="12">
                         <Image Source="{x:Bind MainImage}"
                                Height="150"
                                Stretch="UniformToFill" />
@@ -36,48 +46,8 @@
                                    TextTrimming="WordEllipsis" />
                     </StackPanel>
                 </DataTemplate>
-            </shared:FirstLastDataTemplateSelector.DefaultTemplate>
-            <shared:FirstLastDataTemplateSelector.FirstItemTemplate>
-                <DataTemplate x:DataType="models:Article">
-                    <StackPanel Margin="12"
-                                VariableSizedWrapGrid.ColumnSpan="2"
-                                VariableSizedWrapGrid.RowSpan="3">
-                        <Image Source="{x:Bind MainImage}"
-                               MaxHeight="550"
-                               Stretch="UniformToFill" />
-                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
-                                   FontWeight="Bold"
-                                   FontSize="24"
-                                   Text="{x:Bind Title}" />
-                        <TextBlock Style="{StaticResource BodyTextBlockStyle}"
-                                   Text="{x:Bind Paragraphs[0]}"
-                                   Height="60"
-                                   TextWrapping="Wrap"
-                                   TextTrimming="WordEllipsis" />
-                    </StackPanel>
-                </DataTemplate>
-            </shared:FirstLastDataTemplateSelector.FirstItemTemplate>
-        </shared:FirstLastDataTemplateSelector>
-    </Page.Resources>
-
-
-    <!-- ApplicationPageBackgroundThemeBrush -->
-    <!-- SystemControlAcrylicWindowBrush -->
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-
-        <shared:VariableSizedGridView ItemsSource="{x:Bind ViewModel.Articles}"
-                                      ItemTemplateSelector="{StaticResource FirstLastDataTemplateSelector}"
-                                      IsItemClickEnabled="True"
-                                      SelectionMode="None"
-                                      ItemClick="ArticleClicked">
-            <GridView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VariableSizedWrapGrid Orientation="Horizontal"
-                                           ItemHeight="350"
-                                           ItemWidth="250" />
-                </ItemsPanelTemplate>
-            </GridView.ItemsPanel>
-        </shared:VariableSizedGridView>
+            </GridView.ItemTemplate>
+        </GridView>
 
     </Grid>
 </Page>

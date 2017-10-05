@@ -11,28 +11,43 @@
         <viewModels:ArticlePageViewModel x:Name="ViewModel"/>
     </Page.DataContext>
 
+    <Page.Resources>
+        <AcrylicBrush x:Key="ArticleBackground"
+                      BackgroundSource="Backdrop" TintColor="White" TintOpacity=".8" FallbackColor="White" />
+
+    </Page.Resources>
+
+
     <!-- ApplicationPageBackgroundThemeBrush -->
     <!-- SystemControlAcrylicWindowBrush -->
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        <ScrollViewer>
-            <StackPanel HorizontalAlignment="Center"
-                        MaxWidth="700">
-                <Image Source="{x:Bind ViewModel.Article.MainImage, Mode=TwoWay}"
+        <ParallaxView Source="{x:Bind ArticleScroll}" VerticalShift="50">
+
+            <!-- Background element -->
+            <Image Source="{x:Bind ViewModel.Article.MainImage, Mode=TwoWay}"
                        Stretch="UniformToFill" />
+        </ParallaxView>
+        <ScrollViewer x:Name="ArticleScroll">
+            <StackPanel HorizontalAlignment="Center"
+                        Background="{StaticResource ArticleBackground}"
+                        MaxWidth="700"
+                        Margin="0,400,0,400"
+                        Padding="12">
                 <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
                            FontWeight="Bold"
-                           Text="{x:Bind ViewModel.Article.Title, Mode=TwoWay}" />
+                           Text="{x:Bind ViewModel.Article.Title, Mode=TwoWay}"
+                           Foreground="Black"/>
                 <ItemsControl ItemsSource="{x:Bind ViewModel.Article.Paragraphs, Mode=OneWay}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}"
                                        Margin="0,6"
-                                       Style="{StaticResource BodyTextBlockStyle}"/>
+                                       Style="{StaticResource BodyTextBlockStyle}"
+                                       Foreground="Black"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
         </ScrollViewer>
-
     </Grid>
 </Page>

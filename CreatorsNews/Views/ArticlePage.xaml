@@ -11,26 +11,31 @@
         <viewModels:ArticlePageViewModel x:Name="ViewModel"/>
     </Page.DataContext>
 
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer>
-            <StackPanel HorizontalAlignment="Center"
-                        MaxWidth="700">
+            <StackPanel HorizontalAlignment="Center">
                 <Image Source="{x:Bind ViewModel.Article.MainImage, Mode=TwoWay}"
                        Stretch="UniformToFill" />
-                <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
+                <StackPanel HorizontalAlignment="Center"
+                            Background="White"
+                            MaxWidth="700"
+                            Padding="12">
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
                            FontWeight="Bold"
                            Text="{x:Bind ViewModel.Article.Title, Mode=TwoWay}"
-                           Foreground="White"/>
-                <ItemsControl ItemsSource="{x:Bind ViewModel.Article.Paragraphs, Mode=OneWay}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}"
+                           Foreground="Black"/>
+                    <ItemsControl ItemsSource="{x:Bind ViewModel.Article.Paragraphs, Mode=OneWay}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}"
                                        Margin="0,6"
                                        Style="{StaticResource BodyTextBlockStyle}"
-                                       Foreground="White"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                                       Foreground="Black"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
 
