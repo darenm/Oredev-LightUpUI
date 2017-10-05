@@ -21,7 +21,8 @@
     <!-- ApplicationPageBackgroundThemeBrush -->
     <!-- SystemControlAcrylicWindowBrush -->
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        <ParallaxView Source="{x:Bind ArticleScroll}" VerticalShift="50">
+        <ParallaxView Source="{x:Bind ArticleScroll}" VerticalShift="50"
+                      HorizontalAlignment="Stretch">
 
             <!-- Background element -->
             <Image x:Name="BackgroundImage"

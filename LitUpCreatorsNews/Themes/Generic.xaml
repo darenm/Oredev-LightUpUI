@@ -1,0 +1,25 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CreatorsNews">
+
+    <RevealBorderBrush x:Key="MyRevealBrush" TargetTheme="Dark" />
+
+    <Style TargetType="local:ContentShimmerControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ContentShimmerControl">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{StaticResource MyRevealBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                        <ContentPresenter x:Name="PART_ContentControl" 
+                                          Padding="0"
+                                          Content="{TemplateBinding Content}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
