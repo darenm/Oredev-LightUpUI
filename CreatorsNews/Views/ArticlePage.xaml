@@ -13,12 +13,12 @@
 
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer>
-            <StackPanel HorizontalAlignment="Center">
-                <Image Source="{x:Bind ViewModel.Article.MainImage, Mode=TwoWay}"
+        <Image Source="{x:Bind ViewModel.Article.MainImage, Mode=TwoWay}"
                        Stretch="UniformToFill" />
+        <ScrollViewer>
                 <StackPanel HorizontalAlignment="Center"
                             Background="White"
+                            Margin="0,400,0,400"
                             MaxWidth="700"
                             Padding="12">
                     <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
@@ -36,7 +36,6 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </StackPanel>
-            </StackPanel>
         </ScrollViewer>
 
     </Grid>
