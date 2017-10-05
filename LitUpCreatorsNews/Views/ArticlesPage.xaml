@@ -21,6 +21,7 @@
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
         <GridView ItemsSource="{x:Bind ViewModel.Articles}"
+                  x:Name="ArticlesGrid"
                                       IsItemClickEnabled="True"
                                       SelectionMode="None"
                                       animations:ReorderGridAnimation.Duration="300"
@@ -43,6 +44,7 @@
                                 Height="300"
                                 Margin="12">
                         <Image Source="{x:Bind MainImage}"
+                               x:Name="Image"
                                Height="150"
                                Stretch="UniformToFill" />
                         <TextBlock Style="{StaticResource TitleTextBlockStyle}"

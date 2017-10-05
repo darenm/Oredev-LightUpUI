@@ -24,11 +24,12 @@
         <ParallaxView Source="{x:Bind ArticleScroll}" VerticalShift="50">
 
             <!-- Background element -->
-            <Image Source="{x:Bind ViewModel.Article.MainImage, Mode=TwoWay}"
-                       Stretch="UniformToFill" />
+            <Image x:Name="BackgroundImage"
+                   Stretch="UniformToFill" />
         </ParallaxView>
         <ScrollViewer x:Name="ArticleScroll">
             <StackPanel HorizontalAlignment="Center"
+                        x:Name="ArticlePagePanel"
                         Background="{StaticResource ArticleBackground}"
                         MaxWidth="700"
                         Margin="0,400,0,400"

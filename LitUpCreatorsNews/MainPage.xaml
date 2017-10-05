@@ -186,6 +186,7 @@
                         Background="{ThemeResource SystemControlAcrylicWindowBrush}"
                         SelectionChanged="NavView_SelectionChanged">
 
+            <!-- Empty Header Template so I can display content to the top -->
             <NavigationView.HeaderTemplate>
                 <DataTemplate>
                 </DataTemplate>
