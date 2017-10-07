@@ -7,186 +7,45 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="using:CreatorsNews.ViewModels"
     xmlns:model="using:CreatorsNews.Models"
-    xmlns:shared="using:Shared"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:appmodel="using:Windows.ApplicationModel"
-
     NavigationCacheMode="Required"
     mc:Ignorable="d">
 
     <Page.Resources>
+        <!-- BackgroundSource: 
+                Backdrop - behind the control within the app
+                HostBackdrop - behind the app window
+        -->
         <AcrylicBrush x:Key="TitleBarBackground"
                       BackgroundSource="Backdrop" TintColor="Orange" TintOpacity=".2" FallbackColor="Orange" />
+        
+        <!-- These override existing resources and color the NavigationView -->
         <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
                       BackgroundSource="Backdrop" TintColor="Orange" TintOpacity=".6" FallbackColor="Orange" />
         <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground"
                       BackgroundSource="HostBackdrop" TintColor="Orange" TintOpacity=".8" FallbackColor="Orange" />
 
-        <Style x:Key="NavigationViewStyleNoHeader" TargetType="NavigationView">
-            <Setter Property="PaneToggleButtonStyle" Value="{StaticResource PaneToggleButtonStyle}"/>
-            <Setter Property="IsTabStop" Value="False"/>
-            <Setter Property="HeaderTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="NavigationView">
-                        <Grid x:Name="RootGrid">
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="DisplayModeGroup">
-                                    <VisualState x:Name="Compact"/>
-                                    <VisualState x:Name="Expanded">
-                                        <VisualState.Setters>
-                                            <Setter Target="RootSplitView.PaneBackground" Value="{ThemeResource NavigationViewExpandedPaneBackground}"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                    <VisualState x:Name="Minimal">
-                                        <VisualState.Setters>
-                                            <Setter Target="HeaderContent.Margin" Value="0,0,0,0"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="TogglePaneGroup">
-                                    <VisualState x:Name="TogglePaneButtonVisible"/>
-                                    <VisualState x:Name="TogglePaneButtonCollapsed">
-                                        <VisualState.Setters>
-                                            <Setter Target="TogglePaneButton.Visibility" Value="Collapsed"/>
-                                            <Setter Target="PaneContentGridToggleButtonRow.Height" Value="4"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="HeaderGroup">
-                                    <VisualState x:Name="HeaderVisible"/>
-                                    <VisualState x:Name="HeaderCollapsed">
-                                        <VisualState.Setters>
-                                            <Setter Target="HeaderContent.Visibility" Value="Collapsed"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="SettingsGroup">
-                                    <VisualState x:Name="SettingsVisible"/>
-                                    <VisualState x:Name="SettingsCollapsed">
-                                        <VisualState.Setters>
-                                            <Setter Target="SettingsNavPaneItem.Visibility" Value="Collapsed"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="AutoSuggestGroup">
-                                    <VisualState x:Name="AutoSuggestBoxVisible"/>
-                                    <VisualState x:Name="AutoSuggestBoxCollapsed">
-                                        <VisualState.Setters>
-                                            <Setter Target="AutoSuggestArea.Visibility" Value="Collapsed"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="PaneStateGroup">
-                                    <VisualState x:Name="NotClosedCompact"/>
-                                    <VisualState x:Name="ClosedCompact">
-                                        <VisualState.Setters>
-                                            <Setter Target="PaneAutoSuggestBoxPresenter.Visibility" Value="Collapsed"/>
-                                            <Setter Target="PaneAutoSuggestButton.Visibility" Value="Visible"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="TitleBarVisibilityGroup">
-                                    <VisualState x:Name="TitleBarVisible"/>
-                                    <VisualState x:Name="TitleBarCollapsed">
-                                        <VisualState.Setters>
-                                            <Setter Target="PaneButtonGrid.Margin" Value="0,32,0,0"/>
-                                            <Setter Target="PaneContentGrid.Margin" Value="0,32,0,0"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <Grid HorizontalAlignment="Left" Margin="0,0,0,8" VerticalAlignment="Top" Width="{StaticResource PaneToggleButtonSize}" Canvas.ZIndex="100">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid x:Name="TogglePaneTopPadding"/>
-                                <Button x:Name="TogglePaneButton" AutomationProperties.LandmarkType="Navigation" Grid.Row="1" Style="{TemplateBinding PaneToggleButtonStyle}"/>
-                            </Grid>
-                            <SplitView x:Name="RootSplitView" Background="{TemplateBinding Background}" CompactPaneLength="{TemplateBinding CompactPaneLength}" DisplayMode="Inline" IsTabStop="False" IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" OpenPaneLength="{TemplateBinding OpenPaneLength}" PaneBackground="{ThemeResource NavigationViewDefaultPaneBackground}">
-                                <SplitView.Pane>
-                                    <Grid x:Name="PaneContentGrid">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition x:Name="PaneContentGridToggleButtonRow" Height="56"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="8"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid x:Name="ContentPaneTopPadding"/>
-                                        <Grid x:Name="AutoSuggestArea" Height="40" Grid.Row="2" VerticalAlignment="Center">
-                                            <ContentControl x:Name="PaneAutoSuggestBoxPresenter" Content="{TemplateBinding AutoSuggestBox}" HorizontalContentAlignment="Stretch" IsTabStop="False" Margin="12,0,12,0" VerticalContentAlignment="Center"/>
-                                            <Button x:Name="PaneAutoSuggestButton" Content="&#xE11A;" MinHeight="40" Style="{TemplateBinding PaneToggleButtonStyle}" Visibility="Collapsed" Width="{TemplateBinding CompactPaneLength}"/>
-                                        </Grid>
-                                        <NavigationViewList x:Name="MenuItemsHost" ItemContainerStyleSelector="{TemplateBinding MenuItemContainerStyleSelector}" ItemContainerStyle="{TemplateBinding MenuItemContainerStyle}" ItemTemplate="{TemplateBinding MenuItemTemplate}" IsItemClickEnabled="True" ItemsSource="{TemplateBinding MenuItemsSource}" ItemTemplateSelector="{TemplateBinding MenuItemTemplateSelector}" Margin="0,0,0,20" Grid.Row="3" SelectionMode="Single" SelectedItem="{TemplateBinding SelectedItem}"/>
-                                        <Border x:Name="FooterContentBorder" Child="{TemplateBinding PaneFooter}" Grid.Row="4"/>
-                                        <NavigationViewItem x:Name="SettingsNavPaneItem" Grid.Row="5">
-                                            <NavigationViewItem.Icon>
-                                                <SymbolIcon Symbol="Setting"/>
-                                            </NavigationViewItem.Icon>
-                                        </NavigationViewItem>
-                                    </Grid>
-                                </SplitView.Pane>
-                                <Grid x:Name="ContentGrid">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="0"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <ContentControl x:Name="HeaderContent" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" HorizontalContentAlignment="Stretch" IsTabStop="False" MinHeight="0" VerticalContentAlignment="Stretch"/>
-                                    <ContentPresenter Content="{TemplateBinding Content}" Grid.Row="1"/>
-                                </Grid>
-                            </SplitView>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <DataTemplate x:Key="DefaultTemplate" x:DataType="model:MenuItem">
-            <Grid Width="240" Height="48"
-                  HorizontalAlignment="Left">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="48" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <SymbolIcon Grid.Column="0" Symbol="{x:Bind Icon, Mode=OneWay}" Foreground="Black" />
-                <TextBlock Grid.Column="1" Text="{x:Bind Name, Mode=OneWay}" FontSize="16" VerticalAlignment="Center"
-                           Foreground="Black" />
-            </Grid>
-        </DataTemplate>
-
     </Page.Resources>
+    
+    <!-- Brush Resources - Window means HostBackdrop, Element means Backdrop
+        SystemControlAcrylicWindowBrush, SystemControlAcrylicElementBrush 
+        SystemControlChromeLowAcrylicWindowBrush, SystemControlChromeLowAcrylicElementBrush 
+        SystemControlBaseHighAcrylicWindowBrush, SystemControlBaseHighAcrylicElementBrush 
+        SystemControlBaseLowAcrylicWindowBrush, SystemControlBaseLowAcrylicElementBrush 
+        SystemControlAltHighAcrylicWindowBrush, SystemControlAltHighAcrylicElementBrush 
+        SystemControlAltLowAcrylicWindowBrush, SystemControlAltLowAcrylicElementBrush
+    -->
 
     <!-- ApplicationPageBackgroundThemeBrush -->
     <!-- SystemControlAcrylicWindowBrush -->
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        <!--<controls:HamburgerMenu x:Name="HamburgerMenuControl"
-                                PaneBackground="Orange"
-                                Foreground="Black"
-                                DisplayMode="Inline"
-                                IsPaneOpen="True"
-                                ItemTemplate="{StaticResource DefaultTemplate}"
-                                ItemClick="OnMenuItemClick"
-                                OptionsItemTemplate="{StaticResource DefaultTemplate}"
-                                OptionsItemClick="OnMenuItemClick">
-
-            <Frame x:Name="RootFrame" />
-        </controls:HamburgerMenu>-->
-
-
-
+        <!-- Custom style that allows the NavigationView header to collapse if the HeaderTemplate is empty -->
         <NavigationView Style="{StaticResource NavigationViewStyleNoHeader}" x:Name="NavView"
                         Background="{ThemeResource SystemControlAcrylicWindowBrush}"
                         SelectionChanged="NavView_SelectionChanged">
 
-            <!-- Empty Header Template so I can display content to the top -->
+            <!-- Empty Header Template so I can display content to the top, otherwise 48px gap -->
             <NavigationView.HeaderTemplate>
                 <DataTemplate>
                 </DataTemplate>
@@ -200,11 +59,15 @@
 
             <Grid>
                 <Frame x:Name="RootFrame" />
+                
+                <!-- Custom Title Bar -->
                 <Border Background="{StaticResource TitleBarBackground}"
                         Height="32"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Top">
-                    <TextBlock x:Name="AppTitle" Style="{StaticResource CaptionTextBlockStyle}"
+                    
+                    <TextBlock x:Name="AppTitle" 
+                               Style="{StaticResource CaptionTextBlockStyle}"
                                HorizontalAlignment="Center"
                                Margin="0,8,0,0"
                                Text="{x:Bind appmodel:Package.Current.DisplayName}" 
