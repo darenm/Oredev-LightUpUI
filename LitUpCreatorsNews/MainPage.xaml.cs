@@ -7,7 +7,6 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using CreatorsNews.Models;
 using CreatorsNews.Views;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -22,15 +21,12 @@ namespace CreatorsNews
         public MainPage()
         {
             InitializeComponent();
-            //HamburgerMenuControl.ItemsSource = MenuItem.GetMainItems();
-            //HamburgerMenuControl.OptionsItemsSource = MenuItem.GetOptionsItems();
-            //HamburgerMenuControl.SelectedIndex = 0;
 
             //draw into the title bar
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
             //remove the solid-colored backgrounds behind the caption controls and system back button
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonForegroundColor = Colors.White;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
@@ -48,7 +44,8 @@ namespace CreatorsNews
 
         private void RootFrameOnNavigated(object sender, NavigationEventArgs navigationEventArgs)
         {
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = RootFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                RootFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
 
         /// <summary>
@@ -59,12 +56,6 @@ namespace CreatorsNews
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
-
-        private void OnMenuItemClick(object sender, ItemClickEventArgs e)
-        {
-            var menuItem = e.ClickedItem as MenuItem;
-            RootFrame.Navigate(menuItem.PageType);
         }
 
         #region NavigationMenu navigation
@@ -81,23 +72,15 @@ namespace CreatorsNews
 
                 RootFrame.GoBack();
 
-                string desiredTag = string.Empty;
+                var desiredTag = string.Empty;
                 if (targetPage == typeof(HomePage))
-                {
                     desiredTag = "Home";
-                }
                 else if (targetPage == typeof(NewsPage))
-                {
                     desiredTag = "News";
-                }
                 else if (targetPage == typeof(ArticlesPage))
-                {
                     desiredTag = "Games";
-                }
                 else if (targetPage == typeof(SettingsPage))
-                {
                     desiredTag = "Settings";
-                }
 
                 SetSelectedMenuItem(desiredTag);
             }
@@ -105,6 +88,12 @@ namespace CreatorsNews
 
         private void SetSelectedMenuItem(string tag)
         {
+            if (tag == "Settings")
+            {
+                NavView.SelectedItem = NavView.SettingsItem;
+                return;
+            }
+
             foreach (NavigationViewItem item in NavView.MenuItems)
             {
                 if (item.Tag.ToString() == tag)
@@ -119,48 +108,41 @@ namespace CreatorsNews
         {
             Type targetType = null;
             var currentPageType = RootFrame.Content?.GetType();
-
             if (args.IsSettingsSelected)
             {
                 DetermineValidNavigation(currentPageType, typeof(SettingsPage), out targetType);
             }
             else
             {
+                // got to love pattern matching!
+                if (args.SelectedItem is NavigationViewItem item)
+                    switch (item.Tag)
+                    {
+                        case "Home":
+                            DetermineValidNavigation(currentPageType, typeof(HomePage), out targetType);
+                            break;
 
-                NavigationViewItem item = args.SelectedItem as NavigationViewItem;
-                switch (item.Tag)
-                {
-                    case "Home":
-                        DetermineValidNavigation(currentPageType, typeof(HomePage), out targetType);
-                        break;
+                        case "Games":
+                            DetermineValidNavigation(currentPageType, typeof(ArticlesPage), out targetType);
+                            break;
 
-                    case "Games":
-                        DetermineValidNavigation(currentPageType, typeof(ArticlesPage), out targetType);
-                        break;
-
-                    case "News":
-                        DetermineValidNavigation(currentPageType, typeof(NewsPage), out targetType);
-                        break;
-                }
+                        case "News":
+                            DetermineValidNavigation(currentPageType, typeof(NewsPage), out targetType);
+                            break;
+                    }
             }
 
             if (targetType != null)
-            {
                 RootFrame.Navigate(targetType);
-            }
         }
 
         private void DetermineValidNavigation(Type currentPageType, Type desiredTargetType, out Type actualTargetType)
         {
             actualTargetType = null;
             if (currentPageType == null || currentPageType != desiredTargetType)
-            {
                 actualTargetType = desiredTargetType;
-            }
         }
 
         #endregion
-
-
     }
 }
