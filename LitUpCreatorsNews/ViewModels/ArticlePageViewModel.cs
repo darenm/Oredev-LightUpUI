@@ -4,7 +4,13 @@ namespace CreatorsNews.ViewModels
 {
     public class ArticlePageViewModel : ViewModelBase
     {
+        #region Fields
+
         private Article _article;
+
+        #endregion
+
+        #region Properties
 
         public Article Article
         {
@@ -15,6 +21,8 @@ namespace CreatorsNews.ViewModels
                 RaisePropertyNameChanged();
             }
         }
+
+        #endregion
 
         public void LoadArticle(int index)
         {

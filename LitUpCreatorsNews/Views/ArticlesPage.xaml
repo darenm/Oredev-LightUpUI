@@ -5,7 +5,6 @@
     xmlns:local="using:CreatorsNews.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:shared="using:Shared"
     xmlns:models="using:CreatorsNews.Models"
     xmlns:viewModels="using:CreatorsNews.ViewModels"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
