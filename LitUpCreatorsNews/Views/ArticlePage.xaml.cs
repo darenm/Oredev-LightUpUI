@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Numerics;
 using Windows.UI.Composition;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -17,11 +16,15 @@ namespace CreatorsNews.Views
     /// </summary>
     public sealed partial class ArticlePage : Page
     {
-        private static ScalarKeyFrameAnimation OpacityAnimation;
-        private static Vector3KeyFrameAnimation FlyInTranslationAnimation;
-        private static Vector3KeyFrameAnimation FlyOutTranslationAnimation;
-        private static CompositionAnimationGroup AnimationGroup;
-        private Visual _articleVisual;
+        private static ScalarKeyFrameAnimation _opacityAnimation;
+        private static Vector3KeyFrameAnimation _flyInTranslationAnimation;
+        private static CompositionAnimationGroup _animationGroup;
+
+        #region Fields
+
+        private readonly Visual _articleVisual;
+
+        #endregion
 
         public ArticlePage()
         {
@@ -32,60 +35,81 @@ namespace CreatorsNews.Views
             _articleVisual.Opacity = 0;
         }
 
-        private void EnsureAnimation()
-        {
-            if (AnimationGroup != null)
-            {
-                return;
-            }
-
-            var linear = Window.Current.Compositor.CreateLinearEasingFunction();
-            OpacityAnimation = Window.Current.Compositor.CreateScalarKeyFrameAnimation();
-            OpacityAnimation.InsertKeyFrame(0, 0);
-            OpacityAnimation.InsertKeyFrame(0.2f, 0, linear);
-            OpacityAnimation.InsertKeyFrame(1, 1, linear);
-            OpacityAnimation.Duration = TimeSpan.FromMilliseconds(600);
-            OpacityAnimation.Target = nameof(Visual.Opacity);
-
-            FlyInTranslationAnimation = Window.Current.Compositor.CreateVector3KeyFrameAnimation();
-            FlyInTranslationAnimation.InsertKeyFrame(0, new System.Numerics.Vector3(0, 2000, 0));
-            FlyInTranslationAnimation.InsertKeyFrame(1, System.Numerics.Vector3.Zero);
-            FlyInTranslationAnimation.Duration = TimeSpan.FromMilliseconds(600);
-            FlyInTranslationAnimation.Target = "Translation";
-            AnimationGroup = Window.Current.Compositor.CreateAnimationGroup();
-            AnimationGroup.Add(OpacityAnimation);
-            AnimationGroup.Add(FlyInTranslationAnimation);
-        }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var articleIndex = (int) e.Parameter;
-            ViewModel.LoadArticle(articleIndex);
+            if (e.Parameter != null)
+            {
+                var articleIndex = (int) e.Parameter;
+                ViewModel.LoadArticle(articleIndex);
+            }
 
             BackgroundImage.Source = ViewModel.Article.MainImage;
 
             var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
             if (animation != null)
             {
-                BackgroundImage.Opacity = 0;
-                // Wait for image opened. In future Insider Preview releases, this won't be necessary.
-                BackgroundImage.ImageOpened += (sender_, e_) =>
-                {
-                    BackgroundImage.Opacity = 1;
-                    animation.TryStart(BackgroundImage);
-                    _articleVisual.StartAnimationGroup(AnimationGroup);
-                };
+                BackgroundImage.TryStartAnimation(animation);
+                _articleVisual.StartAnimationGroup(_animationGroup);
             }
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             // Add a fade out effect
-            Transitions = new TransitionCollection();
-            Transitions.Add(new ContentThemeTransition());
+            Transitions = new TransitionCollection {new ContentThemeTransition()};
 
-            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", BackgroundImage);
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", BackgroundImage);
+            }
             base.OnNavigatingFrom(e);
+        }
+
+        private void EnsureAnimation()
+        {
+            if (_animationGroup != null)
+            {
+                return;
+            }
+
+            var linear = Window.Current.Compositor.CreateLinearEasingFunction();
+            _opacityAnimation = Window.Current.Compositor.CreateScalarKeyFrameAnimation();
+            _opacityAnimation.DelayBehavior = AnimationDelayBehavior.SetInitialValueBeforeDelay;
+            _opacityAnimation.DelayTime = TimeSpan.FromMilliseconds(200);
+            _opacityAnimation.InsertKeyFrame(0, 0);
+            _opacityAnimation.InsertKeyFrame(0.2f, 0, linear);
+            _opacityAnimation.InsertKeyFrame(1, 1, linear);
+            _opacityAnimation.Duration = TimeSpan.FromMilliseconds(600);
+            _opacityAnimation.Target = nameof(Visual.Opacity);
+
+            _flyInTranslationAnimation = Window.Current.Compositor.CreateVector3KeyFrameAnimation();
+            _flyInTranslationAnimation.DelayBehavior = AnimationDelayBehavior.SetInitialValueBeforeDelay;
+            _flyInTranslationAnimation.DelayTime = TimeSpan.FromMilliseconds(200);
+            _flyInTranslationAnimation.InsertKeyFrame(0, new Vector3(0, 2000, 0));
+            _flyInTranslationAnimation.InsertKeyFrame(1, Vector3.Zero);
+            _flyInTranslationAnimation.Duration = TimeSpan.FromMilliseconds(600);
+            _flyInTranslationAnimation.Target = "Translation";
+            _animationGroup = Window.Current.Compositor.CreateAnimationGroup();
+            _animationGroup.Add(_opacityAnimation);
+            _animationGroup.Add(_flyInTranslationAnimation);
+        }
+    }
+
+    internal static class ImageExtensions
+    {
+        internal static void TryStartAnimation(this Image image, ConnectedAnimation animation)
+        {
+            image.Opacity = 0;
+
+            // new C# 7 capability - local functions
+            void Handler(object sender, RoutedEventArgs args)
+            {
+                image.Opacity = 1;
+                animation.TryStart(image);
+                image.ImageOpened -= Handler;
+            }
+
+            image.ImageOpened += Handler;
         }
     }
 }
