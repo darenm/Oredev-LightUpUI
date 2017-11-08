@@ -5,11 +5,6 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreatorsNews", "CreatorsNews\CreatorsNews.csproj", "{C351F066-B8D8-4C01-AD43-90CF826EA306}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{9658999C-91C8-450A-9909-CCEE1CAA6AB7}"
-	ProjectSection(SolutionItems) = preProject
-		SVCC-LightUpUI.pptx = SVCC-LightUpUI.pptx
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LitUpNews", "LitUpNews\LitUpNews.csproj", "{9A607F37-D777-4BC4-95DA-84F77DFAB6C3}"
 EndProject
 Global

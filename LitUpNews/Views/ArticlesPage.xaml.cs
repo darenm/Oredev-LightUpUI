@@ -46,7 +46,7 @@ namespace CreatorsNews.Views
             // Add a fade out effect
             Transitions = new TransitionCollection {new ContentThemeTransition()};
 
-            Frame.Navigate(typeof(ArticlePage), _articleIndex);
+            Frame.Navigate(typeof(ArticleDetailPage), _articleIndex);
         }
 
         private async void ArticlesGrid_Loaded(object sender, RoutedEventArgs e)
