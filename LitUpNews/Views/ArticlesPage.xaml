@@ -14,23 +14,24 @@
         <viewModels:MainPageViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
-
+    
     <!-- ApplicationPageBackgroundThemeBrush -->
     <!-- SystemControlAcrylicWindowBrush -->
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
+       
         <!--<GridView ItemsSource="{x:Bind ViewModel.Articles}"
                   x:Name="ArticlesGrid"
-                                      IsItemClickEnabled="True"
-                                      SelectionMode="None"
-                                      animations:ReorderGridAnimation.Duration="300"
-                                      ItemClick="ArticleClicked">-->
+                  IsItemClickEnabled="True"
+                  SelectionMode="None"
+                  animations:ReorderGridAnimation.Duration="300"
+                  ItemClick="ArticleClicked">-->
 
         <GridView ItemsSource="{x:Bind ViewModel.Articles}"
                   x:Name="ArticlesGrid"
-                                      IsItemClickEnabled="True"
-                                      SelectionMode="None"
-                                      ItemClick="ArticleClicked">
+                  IsItemClickEnabled="True"
+                  SelectionMode="None"
+                  ItemClick="ArticleClicked">
 
             <GridView.ItemContainerTransitions>
                 <TransitionCollection>

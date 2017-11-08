@@ -7,9 +7,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <!-- Brush Resources - Window means HostBackdrop, Element means Backdrop
+        SystemControlAcrylicWindowBrush, SystemControlAcrylicElementBrush 
+        SystemControlChromeLowAcrylicWindowBrush, SystemControlChromeLowAcrylicElementBrush 
+        SystemControlBaseHighAcrylicWindowBrush, SystemControlBaseHighAcrylicElementBrush 
+        SystemControlBaseLowAcrylicWindowBrush, SystemControlBaseLowAcrylicElementBrush 
+        SystemControlAltHighAcrylicWindowBrush, SystemControlAltHighAcrylicElementBrush 
+        SystemControlAltLowAcrylicWindowBrush, SystemControlAltLowAcrylicElementBrush
+    -->
+
     <!-- ApplicationPageBackgroundThemeBrush -->
     <!-- SystemControlAcrylicWindowBrush -->
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock FontFamily="SegoeUI" FontWeight="Thin" TextAlignment="Center" FontSize="100" Foreground="White"
                    Margin="0,32,0,0">Home</TextBlock>
     </Grid>

@@ -23,10 +23,10 @@
                       BackgroundSource="Backdrop" TintColor="Orange" TintOpacity=".2" FallbackColor="Orange" />
 
         <!-- These override existing resources and color the NavigationView -->
-        <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
+        <!--<AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
                       BackgroundSource="Backdrop" TintColor="Orange" TintOpacity=".6" FallbackColor="Orange" />
         <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground"
-                      BackgroundSource="HostBackdrop" TintColor="Orange" TintOpacity=".8" FallbackColor="Orange" />
+                      BackgroundSource="HostBackdrop" TintColor="Orange" TintOpacity=".8" FallbackColor="Orange" />-->
 
     </Page.Resources>
 
@@ -41,7 +41,8 @@
 
     <!-- ApplicationPageBackgroundThemeBrush -->
     <!-- SystemControlAcrylicWindowBrush -->
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        
         <!-- Custom style that allows the NavigationView header to collapse if the HeaderTemplate is empty -->
         <controls1:NavViewEx Style="{StaticResource NavigationViewStyleNoHeader}" x:Name="NavView"
                              Background="{ThemeResource SystemControlAcrylicWindowBrush}"
