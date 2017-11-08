@@ -39,14 +39,14 @@ namespace CreatorsNews
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            var rootPage = Window.Current.Content as MainPage;
+            var rootPage = Window.Current.Content as ShellPage;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootPage == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootPage = new MainPage();
+                rootPage = new ShellPage();
 
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
