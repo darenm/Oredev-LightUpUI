@@ -73,11 +73,11 @@ namespace CreatorsNews.Views
             }
 
             var linear = Window.Current.Compositor.CreateLinearEasingFunction();
+
             _opacityAnimation = Window.Current.Compositor.CreateScalarKeyFrameAnimation();
             _opacityAnimation.DelayBehavior = AnimationDelayBehavior.SetInitialValueBeforeDelay;
             _opacityAnimation.DelayTime = TimeSpan.FromMilliseconds(200);
             _opacityAnimation.InsertKeyFrame(0, 0);
-            _opacityAnimation.InsertKeyFrame(0.2f, 0, linear);
             _opacityAnimation.InsertKeyFrame(1, 1, linear);
             _opacityAnimation.Duration = TimeSpan.FromMilliseconds(600);
             _opacityAnimation.Target = nameof(Visual.Opacity);
@@ -89,6 +89,7 @@ namespace CreatorsNews.Views
             _flyInTranslationAnimation.InsertKeyFrame(1, Vector3.Zero);
             _flyInTranslationAnimation.Duration = TimeSpan.FromMilliseconds(600);
             _flyInTranslationAnimation.Target = "Translation";
+
             _animationGroup = Window.Current.Compositor.CreateAnimationGroup();
             _animationGroup.Add(_opacityAnimation);
             _animationGroup.Add(_flyInTranslationAnimation);

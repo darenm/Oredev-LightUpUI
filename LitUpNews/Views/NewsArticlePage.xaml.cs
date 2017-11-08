@@ -37,7 +37,6 @@ namespace CreatorsNews.Views
             opacityAnimation.InsertKeyFrame(1, 1);
             opacityAnimation.Target = nameof(Visual.Opacity);
             ElementCompositionPreview.SetImplicitShowAnimation(ArticleBody, opacityAnimation);
-
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

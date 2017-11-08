@@ -63,6 +63,7 @@ namespace CreatorsNews.Views
                         ArticlesGrid.ScrollIntoView(item, ScrollIntoViewAlignment.Default);
                         // wait for scroll
                         await Task.Delay(TimeSpan.FromMilliseconds(100));
+
                         await ArticlesGrid.TryStartConnectedAnimationAsync(animation, item, "Image");
                     }
                     else
