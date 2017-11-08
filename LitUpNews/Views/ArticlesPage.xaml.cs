@@ -37,11 +37,10 @@ namespace CreatorsNews.Views
             }
         }
 
-
         private void ArticleClicked(object sender, ItemClickEventArgs e)
         {
             _articleIndex = Array.IndexOf(ViewModel.Articles, e.ClickedItem as Article);
-            ArticlesGrid.PrepareConnectedAnimation("Image", e.ClickedItem, "Image");
+            //ArticlesGrid.PrepareConnectedAnimation("Image", e.ClickedItem, "Image");
 
             // Add a fade out effect
             Transitions = new TransitionCollection {new ContentThemeTransition()};
@@ -51,29 +50,29 @@ namespace CreatorsNews.Views
 
         private async void ArticlesGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_articleIndex != null)
-            {
-                // May be able to perform backwards Connected Animation
-                var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
-                if (animation != null)
-                {
-                    var item = ViewModel.Articles[_articleIndex.Value];
-                    if (item != null)
-                    {
-                        ArticlesGrid.ScrollIntoView(item, ScrollIntoViewAlignment.Default);
-                        // wait for scroll
-                        await Task.Delay(TimeSpan.FromMilliseconds(100));
+            //if (_articleIndex != null)
+            //{
+            //    // May be able to perform backwards Connected Animation
+            //    var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
+            //    if (animation != null)
+            //    {
+            //        var item = ViewModel.Articles[_articleIndex.Value];
+            //        if (item != null)
+            //        {
+            //            ArticlesGrid.ScrollIntoView(item, ScrollIntoViewAlignment.Default);
+            //            // wait for scroll
+            //            await Task.Delay(TimeSpan.FromMilliseconds(100));
 
-                        await ArticlesGrid.TryStartConnectedAnimationAsync(animation, item, "Image");
-                    }
-                    else
-                    {
-                        animation.Cancel();
-                    }
-                }
+            //            await ArticlesGrid.TryStartConnectedAnimationAsync(animation, item, "Image");
+            //        }
+            //        else
+            //        {
+            //            animation.Cancel();
+            //        }
+            //    }
 
-                _articleIndex = null;
-            }
+            //    _articleIndex = null;
+            //}
         }
     }
 }

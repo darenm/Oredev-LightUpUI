@@ -29,14 +29,14 @@ namespace CreatorsNews.Views
         {
             this.InitializeComponent();
 
-            var opacityAnimation = Window.Current.Compositor.CreateScalarKeyFrameAnimation();
-            opacityAnimation.DelayBehavior = AnimationDelayBehavior.SetInitialValueBeforeDelay;
-            opacityAnimation.DelayTime = TimeSpan.FromMilliseconds(100);
-            opacityAnimation.Duration = TimeSpan.FromMilliseconds(500);
-            opacityAnimation.InsertKeyFrame(0, 0);
-            opacityAnimation.InsertKeyFrame(1, 1);
-            opacityAnimation.Target = nameof(Visual.Opacity);
-            ElementCompositionPreview.SetImplicitShowAnimation(ArticleBody, opacityAnimation);
+            //var opacityAnimation = Window.Current.Compositor.CreateScalarKeyFrameAnimation();
+            //opacityAnimation.DelayBehavior = AnimationDelayBehavior.SetInitialValueBeforeDelay;
+            //opacityAnimation.DelayTime = TimeSpan.FromMilliseconds(100);
+            //opacityAnimation.Duration = TimeSpan.FromMilliseconds(500);
+            //opacityAnimation.InsertKeyFrame(0, 0);
+            //opacityAnimation.InsertKeyFrame(1, 1);
+            //opacityAnimation.Target = nameof(Visual.Opacity);
+            //ElementCompositionPreview.SetImplicitShowAnimation(ArticleBody, opacityAnimation);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -49,8 +49,8 @@ namespace CreatorsNews.Views
 
             BackgroundImage.Source = ViewModel.Article.MainImage;
 
-            var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
-            animation?.TryStart(BackgroundImage, new[] {TitleTextBlock});
+            //var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
+            //animation?.TryStart(BackgroundImage, new[] {TitleTextBlock});
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -58,10 +58,10 @@ namespace CreatorsNews.Views
             // Add a fade out effect
             Transitions = new TransitionCollection { new ContentThemeTransition() };
 
-            if (e.NavigationMode == NavigationMode.Back)
-            {
-                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", BackgroundImage);
-            }
+            //if (e.NavigationMode == NavigationMode.Back)
+            //{
+            //    ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", BackgroundImage);
+            //}
             base.OnNavigatingFrom(e);
         }
 

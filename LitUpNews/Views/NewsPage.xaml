@@ -18,7 +18,7 @@
     <!-- ApplicationPageBackgroundThemeBrush -->
     <!-- SystemControlAcrylicWindowBrush -->
     <Grid Background="{ThemeResource SystemControlAcrylicElementBrush}">
-        <!--<TextBlock FontFamily="SegoeUI" FontWeight="Thin" TextAlignment="Center" FontSize="100" Foreground="White" Margin="0,32,0,0">News</TextBlock>-->
+        <TextBlock FontFamily="SegoeUI" FontWeight="Thin" TextAlignment="Center" FontSize="100" Foreground="White" Margin="0,32,0,0">News</TextBlock>
 
         <GridView ItemsSource="{x:Bind ViewModel.Articles}"
                   x:Name="ArticlesGrid"
@@ -59,7 +59,7 @@
             </GridView.ItemTemplate>
         </GridView>
 
-        <textShimmer:ContentShimmerControl BorderThickness="2"
+        <!--<textShimmer:ContentShimmerControl BorderThickness="2"
                                            Foreground="White"
                                            LightHeight="150"
                                            HighlightColor="White"
@@ -71,6 +71,7 @@
             <StackPanel Background="Transparent">
                 <TextBlock FontFamily="SegoeUI" FontWeight="Thin" TextAlignment="Center" FontSize="100" Foreground="White" >Shimmery News</TextBlock>
             </StackPanel>
-        </textShimmer:ContentShimmerControl>
+        </textShimmer:ContentShimmerControl>-->
+
     </Grid>
 </Page>

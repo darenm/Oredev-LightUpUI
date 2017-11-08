@@ -32,7 +32,7 @@ namespace CreatorsNews.Views
             EnsureAnimation();
             _articleVisual = ElementCompositionPreview.GetElementVisual(ArticlePagePanel);
             ElementCompositionPreview.SetIsTranslationEnabled(ArticlePagePanel, true);
-            _articleVisual.Opacity = 0;
+            //_articleVisual.Opacity = 0;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -45,12 +45,12 @@ namespace CreatorsNews.Views
 
             BackgroundImage.Source = ViewModel.Article.MainImage;
 
-            var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
-            if (animation != null)
-            {
-                BackgroundImage.TryStartAnimation(animation);
-                _articleVisual.StartAnimationGroup(_animationGroup);
-            }
+            //var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
+            //if (animation != null)
+            //{
+            //    BackgroundImage.TryStartAnimation(animation);
+            //    _articleVisual.StartAnimationGroup(_animationGroup);
+            //}
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -58,10 +58,10 @@ namespace CreatorsNews.Views
             // Add a fade out effect
             Transitions = new TransitionCollection {new ContentThemeTransition()};
 
-            if (e.NavigationMode == NavigationMode.Back)
-            {
-                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", BackgroundImage);
-            }
+            //if (e.NavigationMode == NavigationMode.Back)
+            //{
+            //    ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", BackgroundImage);
+            //}
             base.OnNavigatingFrom(e);
         }
 
