@@ -38,6 +38,8 @@ namespace CreatorsNews.Controls
     {
         Frame _frame;
 
+        public event EventHandler SettingsInvoked;
+
         public Type SettingsPageType { get; set; }
 
         public NavViewEx()
@@ -119,7 +121,7 @@ namespace CreatorsNews.Controls
                             base.SelectedItem = value;
                             _frame.BackStack.Clear();
                         }
-                        //SettingsInvoked?.Invoke(this, EventArgs.Empty);
+                        SettingsInvoked?.Invoke(this, EventArgs.Empty);
                     }
                     else if (value == base.SelectedItem)
                     {
@@ -136,6 +138,7 @@ namespace CreatorsNews.Controls
                 UpdateHeader();
             }
         }
+
         private void UpdateBackButton()
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
