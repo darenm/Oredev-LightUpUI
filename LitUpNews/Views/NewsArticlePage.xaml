@@ -7,6 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:CreatorsNews.ViewModels"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:lights="using:CustomMayd.Controls.TextShimmer.Lights"
+    xmlns:brushes="using:LitUpNews.Brushes"
     mc:Ignorable="d">
 
     <Page.DataContext>
@@ -16,18 +18,28 @@
     <Page.Resources>
         <AcrylicBrush x:Key="ArticleBackground"
                       BackgroundSource="Backdrop" TintColor="White" TintOpacity=".8" FallbackColor="White" />
-
+        
     </Page.Resources>
 
 
     <!-- ApplicationPageBackgroundThemeBrush -->
     <!-- SystemControlAcrylicWindowBrush -->
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+          x:Name="Background"
+          lights:SpotLightXamlLight.IsTarget="True">
+        <!--<Grid.Lights>
+            <lights:SpotLightXamlLight InnerConeColor="Yellow" OuterConeColor="Red"/>
+        </Grid.Lights>-->
         <ScrollViewer x:Name="ArticleScroll">
             <Grid Background="{StaticResource ArticleBackground}"
                   MaxWidth="700"
                   Padding="12"
-                  Margin="0,48,0,0">
+                  Margin="0,400,0,400"
+                  lights:AmbientLightXamlLight.IsTarget="True">
+
+                <!--<Grid.Lights>
+                    <lights:AmbientLightXamlLight Color="BlueViolet"/>
+                </Grid.Lights>-->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="200" />
                     <RowDefinition Height="Auto" />
@@ -68,5 +80,26 @@
                 </ItemsControl>
             </Grid>
         </ScrollViewer>
+
+        <!--<Rectangle HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Width="200"
+                   Height="200">
+            <Rectangle.Fill>
+                <brushes:BackdropBlurBrush TintColor="#55FF0000" BlurAmount="5"/>
+            </Rectangle.Fill>
+        </Rectangle>-->
+
+        <!--<Path HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              StrokeThickness="10" 
+              Stroke="#ff000000" 
+              StrokeMiterLimit="1" 
+              Data="F1 M 126.578613,11.297852 L 162.373535,83.825684 L 242.412598,95.456055 L 184.495605,151.911133 L 198.167480,231.626953 L 126.578613,193.990234 L 54.988770,231.626953 L 68.661621,151.911133 L 10.744629,95.456055 L 90.783691,83.825684 L 126.578613,11.297852 Z">
+            <Path.Fill>
+                <brushes:BackdropBlurBrush TintColor="#55FF0000" BlurAmount="2"/>
+            </Path.Fill>
+        </Path>-->
+
     </Grid>
 </Page>

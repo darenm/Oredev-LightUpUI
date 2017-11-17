@@ -13,10 +13,10 @@ namespace CustomMayd.Controls.TextShimmer.Lights
     public class PointLightXamlLight : XamlLight
     {
         public static readonly DependencyProperty IntensityProperty = DependencyProperty.Register(
-            "Intensity", typeof(double), typeof(AmbientLightXamlLight), new PropertyMetadata(1.0));
+            "Intensity", typeof(double), typeof(PointLightXamlLight), new PropertyMetadata(1.0));
 
         public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(
-            "Color", typeof(Color), typeof(AmbientLightXamlLight), new PropertyMetadata(Colors.White));
+            "Color", typeof(Color), typeof(PointLightXamlLight), new PropertyMetadata(Colors.White));
 
         // Register an attached property that enables apps to set a UIElement or Brush as a target for this light type in markup.
         public static readonly DependencyProperty IsTargetProperty =

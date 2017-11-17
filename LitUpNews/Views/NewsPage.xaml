@@ -20,6 +20,7 @@
     <Grid Background="{ThemeResource SystemControlAcrylicElementBrush}">
         <TextBlock FontFamily="SegoeUI" FontWeight="Thin" TextAlignment="Center" FontSize="100" Foreground="White" Margin="0,32,0,0">News</TextBlock>
 
+
         <GridView ItemsSource="{x:Bind ViewModel.Articles}"
                   x:Name="ArticlesGrid"
                   IsItemClickEnabled="True"
@@ -58,6 +59,8 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
+
+
 
         <!--<textShimmer:ContentShimmerControl BorderThickness="2"
                                            Foreground="White"

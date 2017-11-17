@@ -29,9 +29,9 @@ namespace CreatorsNews.Views
         public ArticleDetailPage()
         {
             InitializeComponent();
-            EnsureAnimation();
-            _articleVisual = ElementCompositionPreview.GetElementVisual(ArticlePagePanel);
-            ElementCompositionPreview.SetIsTranslationEnabled(ArticlePagePanel, true);
+            //EnsureAnimation();
+            //_articleVisual = ElementCompositionPreview.GetElementVisual(ArticlePagePanel);
+            //ElementCompositionPreview.SetIsTranslationEnabled(ArticlePagePanel, true);
             //_articleVisual.Opacity = 0;
         }
 

@@ -22,25 +22,30 @@
     <!-- ApplicationPageBackgroundThemeBrush -->
     <!-- SystemControlAcrylicWindowBrush -->
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        <ParallaxView Source="{x:Bind ArticleScroll}" VerticalShift="50"
-                      HorizontalAlignment="Stretch">
+        <!--<ParallaxView Source="{x:Bind ArticleScroll}" VerticalShift="50"
+                      HorizontalAlignment="Stretch">-->
 
             <!-- Background element -->
             <Image x:Name="BackgroundImage"
                    Stretch="UniformToFill" />
-        </ParallaxView>
+        <!--</ParallaxView>-->
         <ScrollViewer x:Name="ArticleScroll">
-            <controls:DropShadowPanel BlurRadius="8"
+            <!--<controls:DropShadowPanel BlurRadius="8"
                                       ShadowOpacity="0.7"
                                       x:Name="ArticlePagePanel"
-                                      OffsetX="4"
-                                      OffsetY="4"
+                                      OffsetX="6"
+                                      OffsetY="6"
                                       Color="Black"
                                       Margin="0,400,0,400"
-                                      HorizontalAlignment="Center">
+                                      HorizontalAlignment="Center">-->
                 <StackPanel Background="White"
+                            MaxWidth="700"
+                            Margin="0,400,0,400"
+                            Padding="12">
+
+                <!--<StackPanel Background="White"
                         MaxWidth="700"
-                        Padding="12">
+                        Padding="12">-->
                     <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
                            FontWeight="Bold"
                            Text="{x:Bind ViewModel.Article.Title, Mode=TwoWay}"
@@ -56,7 +61,7 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </StackPanel>
-            </controls:DropShadowPanel>
+            <!--</controls:DropShadowPanel>-->
         </ScrollViewer>
     </Grid>
 </Page>

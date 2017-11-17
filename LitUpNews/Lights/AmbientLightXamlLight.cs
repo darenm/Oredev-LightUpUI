@@ -19,7 +19,7 @@ namespace CustomMayd.Controls.TextShimmer.Lights
             DependencyProperty.RegisterAttached(
                 "IsTarget",
                 typeof(bool),
-                typeof(SpotLightXamlLight),
+                typeof(AmbientLightXamlLight),
                 new PropertyMetadata(null, OnIsTargetChanged)
             );
 

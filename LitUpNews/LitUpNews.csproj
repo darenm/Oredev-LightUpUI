@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Brushes\BackdropBlurBrush.cs" />
     <Compile Include="Controls\ContentShimmerControl.cs" />
     <Compile Include="Controls\NavViewEx.cs" />
     <Compile Include="Lights\AmbientLightXamlLight.cs" />
